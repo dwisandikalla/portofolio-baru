@@ -5,25 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portofolio Fullscreen</title>
     <style>
-         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
-        /* SEMUA KODINGAN CSS DIMASUKKAN KE SINI */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+        /* RESET DEFAULT STYLE */
         *, *::before, *::after {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
 
-        body, html {
-            body, html {
+        /* PERBAIKAN: Sintaks penulisan ganda sudah diperbaiki */
+        html, body {
             width: 100%;
-            /* GANTI FONT KE INTER AGAR SAMA DI SEMUA LAPTOP & HP */
+            height: 100%;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             scroll-behavior: smooth;
             overflow-x: hidden;
             background-color: #0b0b0d; 
         }
 
-        /* Navigasi Melayang Menindih Gambar */
+        /* NAVIGASI MELAYANG */
         .navbar {
             position: fixed; 
             top: 0;
@@ -54,81 +55,76 @@
             margin-left: 25px;
         }
 
-        /* Hanya teks yang bisa diklik */
         .nav-links a {
             text-decoration: none;
             color: #ffffff; 
             font-weight: 500;
             font-size: 16px;
             padding: 5px 0; 
-            background: none; 
             text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
             transition: color 0.3s;
         }
 
         .nav-links a:hover {
             color: #007bff; 
-            opacity: 0.9;
         }
 
         .main-content {
             width: 100%;
-            background-color: #0d0d0d;
+            background-color: #0b0b0d;
         }
 
+        /* BOX UTAMA SECTION */
         .section-box {
             width: 100%;
             position: relative;
-            height: auto;
-            min-height: auto; /* Menggunakan min-height, bukan height kaku */
-            display: block;
-            justify-content: center;
-            align-items: center;
+            height: 100vh; /* Mengunci tinggi section agar pas 1 layar penuh */
             overflow: hidden;
-            line-height: 0;
-            background-color: #000; /* Warna hitam di latar belakang agar transisi antar gambar mulus */
+            background-color: #0b0b0d; 
         }
 
+        /* GAMBAR FULLSCREEN (Bertindak sebagai Background Asli) */
         .fullscreen-img {
-            width: 100vw; 
-            height: auto; 
-            display: block;
-            margin: 0;
-            padding: 0;
-        }
-
-        .shadow-fade-bottom {
-            position: absolute;
-            bottom: 0;
-            left: 0;
             width: 100%;
-            height: 180px; /* Ketebalan gradasi bayangan */
-            background: linear-gradient(to bottom, rgba(11, 11, 13, 0) 0%, rgba(11, 11, 13, 1) 100%);
-            pointer-events: none; /* Klik tembus ke gambar di bawahnya */
-            z-index: 10;
-        }
-
-        /* Semburan bayangan di ujung atas Gambar 2 (Muncul perlahan dari Hitam) */
-        .shadow-fade-top {
+            height: 100%;
+            object-fit: cover; /* Mencegah gambar gepeng/distorsi */
+            display: block;
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 120px;
-            background: linear-gradient(to bottom, rgba(11, 11, 13, 1) 0%, rgba(11, 11, 13, 0) 100%);
-            pointer-events: none;
-            z-index: 10;
+            z-index: 1; /* Layer paling bawah */
         }
 
+        /* PERBAIKAN SINTAKS SHADOW GRADIENT */
+        .shadow-fade-top, .shadow-fade-bottom {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 20vh; /* Menggunakan vh agar dinamis di semua device */
+            pointer-events: none; 
+            z-index: 5; /* Berada di atas gambar (z-index 1) */
+        }
+
+        .shadow-fade-top {
+            top: 0;
+            background: linear-gradient(to bottom, rgba(11, 11, 13, 1) 0%, rgba(11, 11, 13, 0) 100%);
+        }
+
+        .shadow-fade-bottom {
+            bottom: 0;
+            background: linear-gradient(to top, rgba(11, 11, 13, 1) 0%, rgba(11, 11, 13, 0) 100%);
+        }
+
+        /* OVERLAY TEXT DESKTOP */
         .about-overlay {
             position: absolute;
-            top: 30%;
-            right: 8%; /* Mengatur posisi teks di sebelah kanan layar */
+            top: 50%;
+            right: 8%; 
             transform: translateY(-50%);
-            width: 45%; /* Membatasi lebar teks agar tidak menabrak foto di kiri */
+            width: 45%; 
             color: #ffffff;
             line-height: 1.6;
-            z-index: 20;
+            z-index: 10; /* Layer paling atas di atas shadow */
         }
 
         .about-overlay h2 {
@@ -146,7 +142,7 @@
             text-align: justify;
         }
 
-        /* Pengaturan Khusus Layar HP */
+        /* RESPONSIVE RESPONS HP (MAKSIMAL LAYAR 768px) */
         @media (max-width: 768px) {
             .navbar {
                 padding: 0 20px;
@@ -158,52 +154,37 @@
             .nav-links a {
                 font-size: 14px;
             }
+            
             .section-box {
-                position: relative;
-                height: auto;
-                display: flex;
-                flex-direction: row;
-                min-height: auto;
-                align-items: flex-start;
+                height: 100vh; /* Tetap mengunci tinggi layar di mobile */
             }
-            .fullscreen-img {
-                width: 100vw;
-                height: auto;
-                object-fit: contain; /* Agar seluruh gambar foto Anda terlihat tanpa terpotong */
-                object-position: center;
-            }
+
+            /* PERBAIKAN: Mengaktifkan kembali shadow di layar HP */
             .shadow-fade-bottom {
-                height: 90px;
-                display: none;
+                display: block;
+                height: 25vh; 
             }
             .shadow-fade-top {
-                height: 60px;
-                display: none;
+                display: block;
+                height: 15vh;
             }
+
             .about-overlay {
-                position: absolute; /* Mengubah dari absolute ke relative agar teks mengikuti alur normal */
-                top: 50%;
-                right: 8%; /* Mengatur posisi teks di sebelah kanan layar */
-                transform: translateY(-50%);
-                width: 45%; /* Membatasi lebar teks agar tidak menabrak foto di kiri */
-                color: #ffffff;
-                line-height: 1.6;
-                padding: 20px;
-                z-index: 10;
+                top: auto;
+                bottom: 10%; /* Memosisikan teks rapi di area bawah layar HP */
+                right: 5%;
+                left: 5%;
+                width: 90%;
+                transform: none;
+                text-align: center;
             }
             .about-overlay h2 {
-                font-size: 18px;
-                font-weight: 700;
+                font-size: 24px;
                 margin-bottom: 10px;
-                letter-spacing: 1px;
-                text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
-                font-size: 18px;
-                color: #ffffff;
             }
             .about-overlay p {
-                font-size: 10px;
-                text-align: justify;
-                color: #ffffff;
+                font-size: 14px;
+                text-align: center;
             }
         }
     </style>
@@ -223,51 +204,46 @@
 
     <main class="main-content">
 
-        <!-- SECTION 1: HOME -->
         <section class="section-box" id="home">
             <picture>
                 <source media="(min-width: 769px)" srcset="./gambar/D1.svg">
                 <img src="./gambar/M1.svg" alt="Halaman Utama Atas" class="fullscreen-img">
             </picture>
-            <!-- Shadow ditaruh setelah gambar agar menimpa di atasnya -->
             <div class="shadow-fade-bottom"></div>
         </section>
     
-        <!-- SECTION 2: ABOUT -->
         <section class="section-box" id="about">
             <picture>
                 <source media="(min-width: 769px)" srcset="./gambar/D2.svg">
                 <img src="./gambar/M2.svg" alt="Halaman Konten Bawah" class="fullscreen-img">
             </picture>
             
-            <!-- Semua elemen overlay & shadow ditaruh di bawah gambar -->
             <div class="shadow-fade-top"></div>
+            <div class="shadow-fade-bottom"></div>
+
             <div class="about-overlay">
                 <h2>About Me</h2>
                 <p>
                     Halo, saya Dwi Sandi Kalla. Saya adalah seorang Sarjana Sains Matematika yang memiliki ketertarikan mendalam dan keahlian di bidang analisis data serta machine learning engineering. Memadukan fondasi logika matematika yang kuat dengan pemodelan prediktif, saya fokus pada pengolahan data kompleks untuk menghasilkan wawasan strategis yang akurat dan berdampak nyata bagi keputusan profesional.
                 </p>
             </div>
-            <div class="shadow-fade-bottom"></div>
         </section>
     
-        <!-- SECTION 3: EDUCATION -->
         <section class="section-box" id="education">
             <picture>
                 <source media="(min-width: 769px)" srcset="./gambar/D3.svg">
                 <img src="./gambar/M3.svg" alt="Halaman Konten Bawah" class="fullscreen-img">
             </picture>
     
-            <!-- Semua elemen overlay & shadow ditaruh di bawah gambar -->
             <div class="shadow-fade-top"></div>
+            <div class="shadow-fade-bottom"></div>
+
             <div class="about-overlay">
                 <h2>My Education</h2>
                 <p>
-                    <!-- Teks ini sudah disesuaikan contohnya untuk edukasi -->
                     Saya menempuh pendidikan Sarjana Sains (S.Si) di jurusan Matematika. Selama perkuliahan, saya berfokus pada visualisasi data, metode statistika, serta pengembangan algoritma komputasi yang menjadi landasan kuat saya dalam mendalami Machine Learning dan Data Analytics.
                 </p>
             </div>
-            <div class="shadow-fade-bottom"></div>
         </section>
     
     </main>
