@@ -182,11 +182,13 @@
             }
             .about-overlay {
                 position: absolute; /* Mengubah dari absolute ke relative agar teks mengikuti alur normal */
-                top: 10%;           /* Sesuaikan agar teks tidak menutupi wajah */
-                left: 0;
-                width: 100%;
+                top: 30%;
+                right: 8%; /* Mengatur posisi teks di sebelah kanan layar */
+                transform: translateY(-50%);
+                width: 45%; /* Membatasi lebar teks agar tidak menabrak foto di kiri */
+                color: #ffffff;
+                line-height: 1.6;
                 padding: 20px;
-                background: rgba(0, 0, 0, 0.6); /* Background hitam transparan agar teks terbaca */
                 text-align: center;
                 z-index: 10;
             }
