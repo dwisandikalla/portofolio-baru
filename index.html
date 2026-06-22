@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio Fullscreen</title>
+    <style>
+        /* SEMUA KODINGAN CSS DIMASUKKAN KE SINI */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            background-color: #0b0b0d;
+        }
+
+        /* Navigasi Melayang Menindih Gambar */
+        .navbar {
+            position: fixed; 
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background: transparent; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+            z-index: 9999; 
+        }
+
+        .nav-logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffffff; 
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6); 
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 25px;
+        }
+
+        /* Hanya teks yang bisa diklik */
+        .nav-links a {
+            text-decoration: none;
+            color: #ffffff; 
+            font-weight: 500;
+            font-size: 16px;
+            padding: 5px 0; 
+            background: none; 
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #007bff; 
+            opacity: 0.9;
+        }
+
+        .main-content {
+            width: 100%;
+            background-color: #0d0d0d;
+        }
+
+        .section-box {
+            width: 100%;
+            position: relative;
+            height: auto;
+            min-height: auto; /* Menggunakan min-height, bukan height kaku */
+            display: block;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            line-height: 0;
+            background-color: #000; /* Warna hitam di latar belakang agar transisi antar gambar mulus */
+        }
+
+        .fullscreen-img {
+            width: 100vw; 
+            height: auto; 
+            display: block;
+            margin: 0;
+            padding: 0;
+        }
+
+        .shadow-fade-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 180px; /* Ketebalan gradasi bayangan */
+            background: linear-gradient(to bottom, rgba(11, 11, 13, 0) 0%, rgba(11, 11, 13, 1) 100%);
+            pointer-events: none; /* Klik tembus ke gambar di bawahnya */
+            z-index: 10;
+        }
+
+        /* Semburan bayangan di ujung atas Gambar 2 (Muncul perlahan dari Hitam) */
+        .shadow-fade-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 120px;
+            background: linear-gradient(to bottom, rgba(11, 11, 13, 1) 0%, rgba(11, 11, 13, 0) 100%);
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .about-overlay {
+            position: absolute;
+            top: 30%;
+            right: 8%; /* Mengatur posisi teks di sebelah kanan layar */
+            transform: translateY(-50%);
+            width: 45%; /* Membatasi lebar teks agar tidak menabrak foto di kiri */
+            color: #ffffff;
+            line-height: 1.6;
+            z-index: 20;
+        }
+
+        .about-overlay h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+        }
+
+        .about-overlay p {
+            font-size: 18px;
+            color: #e0e0e6;
+            text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.8);
+            text-align: justify;
+        }
+
+        /* Pengaturan Khusus Layar HP */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0 20px;
+                height: 60px;
+            }
+            .nav-links li {
+                margin-left: 15px;
+            }
+            .nav-links a {
+                font-size: 14px;
+            }
+            .section-box {
+                height: auto;
+                min-height: auto;
+            }
+            .fullscreen-img {
+                width: 100vw;
+                height: auto;
+                object-fit: cover; 
+            }
+            .shadow-fade-bottom {
+                height: 90px;
+            }
+            .shadow-fade-top {
+                height: 60px;
+            }
+            .about-overlay {
+                position: absolute;
+                top: auto;
+                bottom: 10%; 
+                right: 5%;
+                left: 5%;
+                width: 90%; 
+                transform: none;
+                text-align: center;
+            }
+            .about-overlay h2 {
+                font-size: 24px;
+                margin-bottom: 10px;
+            }
+            .about-overlay p {
+                font-size: 14px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-logo">MyPortfolio</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#">Projects</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+
+        <section class="section-box" id="home">
+            <picture>
+                <source media="(min-width: 769px)" srcset="./gambar/D1.svg">
+                <img src="./gambar/M1.svg" alt="Halaman Utama Atas" class="fullscreen-img">
+            </picture>
+            <div class="shadow-fade-bottom"></div>
+        </section>
+
+        <section class="section-box" id="about">
+            <div class="shadow-fade-top"></div>
+
+            <picture>
+                <source media="(min-width: 769px)" srcset="./gambar/D2.svg">
+                <img src="./gambar/M2.svg" alt="Halaman Konten Bawah" class="fullscreen-img">
+            </picture>
+
+            <div class="about-overlay">
+                <h2>About Me</h2>
+                <p>
+                    Halo, saya Dwi Sandi Kalla. Saya adalah seorang Sarjana Sains Matematika yang memiliki ketertarikan mendalam dan keahlian di bidang analisis data serta machine learning engineering. Memadukan fondasi logika matematika yang kuat dengan pemodelan prediktif, saya fokus pada pengolahan data kompleks untuk menghasilkan wawasan strategis yang akurat dan berdampak nyata bagi keputusan profesional.
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>
