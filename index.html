@@ -161,8 +161,9 @@
             .section-box {
                 height: auto;
                 display: flex;
-                flex-direction: column;
+                flex-direction: row;
                 min-height: auto;
+                align-items: flex-start;
             }
             .fullscreen-img {
                 width: 100vw;
@@ -179,25 +180,21 @@
             }
             .about-overlay {
                 position: relative; /* Mengubah dari absolute ke relative agar teks mengikuti alur normal */
-                top: 0;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                width: 100%;
-                padding: 40px 20px; /* Jarak napas yang lega */
-                background: #0b0b0d; /* Latar hitam pekat agar rapi */
+                width: 60%; /* Teks mengambil 60% layar di kanan */
+                padding: 10px;
+                background: transparent;
                 transform: none;
                 text-align: center;
                 z-index: 20;
             }
             .about-overlay h2 {
-                font-size: 28px;
-                margin-bottom: 15px;
+                font-size: 18px;
+                margin-bottom: 5px;
             }
             .about-overlay p {
-                font-size: 15px;
+                font-size: 10px;
                 line-height: 1.6;
-                text-align: center;
+                text-align: justify;
                 color: #ffffff;
             }
         }
