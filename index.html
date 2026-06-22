@@ -159,6 +159,7 @@
                 font-size: 14px;
             }
             .section-box {
+                position: relative;
                 height: auto;
                 display: flex;
                 flex-direction: row;
@@ -168,7 +169,8 @@
             .fullscreen-img {
                 width: 100vw;
                 height: auto;
-                object-fit: cover; 
+                object-fit: contain; /* Agar seluruh gambar foto Anda terlihat tanpa terpotong */
+                object-position: center;
             }
             .shadow-fade-bottom {
                 height: 90px;
@@ -179,22 +181,22 @@
                 display: none;
             }
             .about-overlay {
-                position: relative; /* Mengubah dari absolute ke relative agar teks mengikuti alur normal */
-                width: 60%; /* Teks mengambil 60% layar di kanan */
-                padding: 10px;
-                background: transparent;
-                transform: none;
+                position: absolute; /* Mengubah dari absolute ke relative agar teks mengikuti alur normal */
+                top: 10%;           /* Sesuaikan agar teks tidak menutupi wajah */
+                left: 0;
+                width: 100%;
+                padding: 20px;
+                background: rgba(0, 0, 0, 0.6); /* Background hitam transparan agar teks terbaca */
                 text-align: center;
-                z-index: 20;
+                z-index: 10;
             }
             .about-overlay h2 {
                 font-size: 18px;
-                margin-bottom: 5px;
+                color: #ffffff;
             }
             .about-overlay p {
                 font-size: 10px;
-                line-height: 1.6;
-                text-align: justify;
+                text-align: center;
                 color: #ffffff;
             }
         }
